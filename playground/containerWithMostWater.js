@@ -1,6 +1,9 @@
 /**
  * @param {number[]} height
  * @return {number}
+ * 思路:
+ *  1. 可以使用暴力穷举, 但会超出时间限制
+ *  2. 双指针法
  */
 var maxArea = function(height) {
     if(!height || height.length < 2) return 0
