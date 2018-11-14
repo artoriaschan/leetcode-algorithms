@@ -15,7 +15,7 @@ function ListNode(val) {
  * @return {ListNode}
  */
 var mergeTwoLists = function(l1, l2) {
-    if(!l1 && !l2) return []
+    if(!l1 && !l2) return null
     let list = null
     let head = null
     let hasHead = false
