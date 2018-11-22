@@ -36,5 +36,5 @@ var divide = function(dividend, divisor) {
     return discuss
 };
 
-let dividend = 1, divisor = 1
+let dividend = 2147483647, divisor = 2
 console.log(divide(dividend, divisor))
