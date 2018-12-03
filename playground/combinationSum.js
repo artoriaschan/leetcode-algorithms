@@ -13,7 +13,7 @@ var combinationSum = function(candidates, target) {
             return 
         }
         if (target === 0) {
-            let copy = JSON.parse(JSON.stringify(solvespace))
+            let copy = JSON.parse(JSON.stringify(solvespace))   // 复制数组
             result.push(copy)
             return 
         }
