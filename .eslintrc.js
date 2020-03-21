@@ -27,7 +27,9 @@ module.exports = {
     "no-shadow": "off",
     "no-underscore-dangle": "off",
     "no-return-assign": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-bitwise": "off",
+    "consistent-return": "off"
   },
   settings: {
     // ...
