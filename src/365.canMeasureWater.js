@@ -6,8 +6,8 @@
  * @return {boolean}
  * 思路:
  *  数学: 贝祖定理
- *  ax+by=zax+by=z 有解当且仅当 zz 是 x,yx,y 的最大公约数的倍数。
- * 因此我们只需要找到 x,yx,y 的最大公约数并判断 zz 是否是它的倍数即可。
+ *  ax+by=z 有解当且仅当 z 是 x,y的最大公约数的倍数。
+ * 因此我们只需要找到 x,y的最大公约数并判断 z 是否是它的倍数即可。
  */
 function canMeasureWater(x, y, z) {
   let gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
