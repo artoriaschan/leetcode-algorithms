@@ -29,7 +29,8 @@ module.exports = {
     "no-return-assign": "off",
     "no-plusplus": "off",
     "no-bitwise": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-param-reassign": "off"
   },
   settings: {
     // ...
