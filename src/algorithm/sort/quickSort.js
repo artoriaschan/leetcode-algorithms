@@ -41,6 +41,33 @@ function partition(arr, lo, hi) {
   return lo;
 }
 /**
+ * 另一种轴点变换算法, 变种
+ * 核心就是将序列划分为 (L <= pivot, pivot <= G, U) 三个子序列,
+ * 遍历子序列U, 将其元素分别放入L和G中, L和G使用mi进行分割, mi为指向L序列的最后一个元素
+ *  当U序列中的k指向的元素小于候选轴点时, 扩展L序列: swap(arr, ++mi, k)
+ *  遍历结束时, U序列为空, 划分为L和G两个子序列, L为小于轴点元素的集合, G为大于轴点元素的集合,
+ *  交换mi和轴点元素, 此时候选轴点元素转换完成
+ * @param {*} arr
+ * @param {*} lo
+ * @param {*} hi
+ * @returns
+ */
+// eslint-disable-next-line no-unused-vars
+function partition1(arr, lo, hi) {
+  function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  let pivot = arr[lo];
+  let mi = lo;
+  for (let k = lo + 1; k <= hi; k++) {
+    if (arr[k] < pivot) swap(arr, ++mi, k);
+  }
+  swap(arr, lo, mi);
+  return mi;
+}
+/**
  * 另一种轴点转换的方法
  *  指定left为轴点, 从left + 1开始遍历子序列, 比轴点小的元素与头部指针指向的元素进行交换,放到序列头部, 头部指针并向后移一位
  *  遍历结束时, 交换头部指针元素和轴点元素
@@ -50,7 +77,7 @@ function partition(arr, lo, hi) {
  * @returns
  */
 // eslint-disable-next-line no-unused-vars
-function partition1(arr, left, right) {
+function partition2(arr, left, right) {
   function swap(arr, i, j) {
     let temp = arr[i];
     arr[i] = arr[j];
