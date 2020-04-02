@@ -30,7 +30,8 @@ module.exports = {
     "no-plusplus": "off",
     "no-bitwise": "off",
     "consistent-return": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-continue": "off"
   },
   settings: {
     // ...
