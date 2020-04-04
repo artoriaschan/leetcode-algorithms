@@ -4,6 +4,7 @@
 /**
  * @param {number[]} prices
  * @return {number}
+ * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-lab/
  * 思路:
  *  动态规划
  *    0 <= i <= n-1, 1 <= k <= K
@@ -21,9 +22,6 @@
  *    dp[i][1] = max(dp[i-1][1], -prices[i])
  */
 function maxProfit(prices) {
-  // 但是这样处理 base case 很麻烦，而且注意一下状态转移方程，
-  // 新状态只和相邻的一个状态有关，其实不用整个 dp 数组，
-  // 只需要一个变量储存相邻的那个状态就足够了，这样可以把空间复杂度降到 O(1)
   // const n = prices.length;
   // if (n === 0) return 0;
   // const dp = Array.from(new Array(prices.length), () => new Array(prices.length).fill(0));
@@ -38,6 +36,9 @@ function maxProfit(prices) {
   //   dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
   // }
   // return dp[n - 1][0];
+  // 但是这样处理 base case 很麻烦，而且注意一下状态转移方程，
+  // 新状态只和相邻的一个状态有关，其实不用整个 dp 数组，
+  // 只需要一个变量储存相邻的那个状态就足够了，这样可以把空间复杂度降到 O(1)
   // 优化版
   const n = prices.length;
   // base case: dp[-1][0] = 0, dp[-1][1] = -infinity
