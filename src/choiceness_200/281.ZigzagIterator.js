@@ -21,9 +21,9 @@ class ZigzagIterator {
       this.cache.push(v2[i]);
     }
     if (len === len1) {
-      this.cache = this.cache.concat(this.v2.splice(i));
+      this.cache = this.cache.concat(v2.splice(i));
     } else {
-      this.cache = this.cache.concat(this.v1.splice(i));
+      this.cache = this.cache.concat(v1.splice(i));
     }
   }
 
