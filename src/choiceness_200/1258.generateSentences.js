@@ -57,8 +57,8 @@ class Disjoint {
     if (!this.father.has(x)) this.father.set(x, x);
     if (!this.father.has(y)) this.father.set(y, y);
 
-    const parentX = this.getRoot(x);
-    const parentY = this.getRoot(y);
+    const parentX = this.find(x);
+    const parentY = this.find(y);
     if (parentX !== parentY) {
       this.father.set(parentX, parentY);
     }
@@ -67,7 +67,7 @@ class Disjoint {
   getSynonymsMap() {
     const res = new Map(); // 根 => 连通分量
     for (const curr of this.father.keys()) {
-      const father = this.getRoot(curr);
+      const father = this.find(curr);
       if (!res.has(father)) {
         res.set(father, []);
       }
