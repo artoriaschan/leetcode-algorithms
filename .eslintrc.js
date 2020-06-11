@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['eslint:recommended', 'airbnb-base/legacy', 'prettier'],
   parserOptions: {
-    ecmaVersion: 2019,
+    ecmaVersion: 2015,
     sourceType: 'module'
   },
   env: {
@@ -38,6 +38,7 @@ module.exports = {
   },
   globals: {
     // ...
-    "BigInt": "readonly"
+    "BigInt": "readonly",
+    "TreeNode": "readonly"
   }
 };
