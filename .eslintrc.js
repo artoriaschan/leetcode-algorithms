@@ -31,7 +31,8 @@ module.exports = {
     "no-bitwise": "off",
     "consistent-return": "off",
     "no-param-reassign": "off",
-    "no-continue": "off"
+    "no-continue": "off",
+    "max-classes-per-file": "off"
   },
   settings: {
     // ...

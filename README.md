@@ -1,7 +1,7 @@
-## LeetCode 题库
-> leetcode 刷题记录
-
-## Content
+# 算法总结 及 leetcode 刷题记录
+## 算法
+## leetcode 刷题记录
+### Content
   * ✅ 2020-03月 每日一题
   * ✅ 2020-04月 每日一题
   * ✅ 2020-05月 每日一题
