@@ -20,20 +20,26 @@ function invertTree(root) {
 }
 function exchangeSubTree(root) {
   if (!root) return null;
-  if (root.left && root.right) {
-    let tmp = root.right;
-    root.right = root.left;
-    root.left = tmp;
-    exchangeSubTree(root.left);
-    exchangeSubTree(root.right);
-  } else if (!root.left && root.right) {
-    root.left = root.right;
-    root.right = null;
-    exchangeSubTree(root.left);
-  } else if (!root.right && root.left) {
-    root.right = root.left;
-    root.left = null;
-    exchangeSubTree(root.right);
-  }
-  return root;
+  return {
+    val: root.val,
+    left: exchangeSubTree(root.right),
+    right: exchangeSubTree(root.left),
+  };
+
+  // if (root.left && root.right) {
+  //   let tmp = root.right;
+  //   root.right = root.left;
+  //   root.left = tmp;
+  //   exchangeSubTree(root.left);
+  //   exchangeSubTree(root.right);
+  // } else if (!root.left && root.right) {
+  //   root.left = root.right;
+  //   root.right = null;
+  //   exchangeSubTree(root.left);
+  // } else if (!root.right && root.left) {
+  //   root.right = root.left;
+  //   root.left = null;
+  //   exchangeSubTree(root.right);
+  // }
+  // return root;
 }

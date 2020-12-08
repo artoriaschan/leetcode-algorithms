@@ -32,7 +32,8 @@ module.exports = {
     "consistent-return": "off",
     "no-param-reassign": "off",
     "no-continue": "off",
-    "max-classes-per-file": "off"
+    "max-classes-per-file": "off",
+    "no-unused-vars": "off"
   },
   settings: {
     // ...
