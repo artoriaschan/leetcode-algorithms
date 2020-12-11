@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['eslint:recommended', 'airbnb-base/legacy', 'prettier'],
   parserOptions: {
-    ecmaVersion: 2015,
+    ecmaVersion: 2020,
     sourceType: 'module'
   },
   env: {
@@ -36,10 +36,8 @@ module.exports = {
     "no-unused-vars": "off"
   },
   settings: {
-    // ...
   },
   globals: {
-    // ...
     "BigInt": "readonly",
     "TreeNode": "readonly"
   }
