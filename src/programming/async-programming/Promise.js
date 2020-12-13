@@ -1,3 +1,4 @@
+/* eslint-disable no-new */
 const PENDING = "pending";
 const RESOLVED = "resolved";
 const REJECTED = "rejected";
@@ -52,10 +53,38 @@ class MyPromise {
   }
 }
 
-new MyPromise((resolve, reject) => {
+// new MyPromise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(1);
+//   }, 1000);
+// }).then(value => {
+//   console.log(value);
+// });
+// eslint-disable-next-line no-new
+new Promise(function(resolve, reject) {
+  resolve(1);
+  resolve(2);
+})
+  .then(function(res) {
+    console.log(res);
+    return 3;
+  })
+  .then(function(res) {
+    console.log(res);
+  });
+
+// 宏任务队列和微任务队列
+setTimeout(() => {
+  console.log(1);
+  new Promise(function(resolve) {
+    resolve(2);
+  }).then(res => {
+    console.log(res);
+    new Promise(function(resolve) {
+      resolve(3);
+    }).then(res => console.log(res));
+  });
   setTimeout(() => {
-    resolve(1);
-  }, 1000);
-}).then(value => {
-  console.log(value);
-});
+    console.log(4);
+  }, 0);
+}, 0);

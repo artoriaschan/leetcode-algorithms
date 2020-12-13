@@ -5,6 +5,7 @@ function add(a, b) {
   a = a.padStart(maxLength, 0);
   b = b.padStart(maxLength, 0);
   // 定义加法过程中需要用到的变量
+  // 位数和
   let t = 0;
   // "进位"
   let f = 0;
