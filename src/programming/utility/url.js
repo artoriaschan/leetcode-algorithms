@@ -1,3 +1,21 @@
+// 利用a标签解析url
+function urlParseWithATag(url) {
+  const a = document.createElement("a");
+  a.href = url;
+  // const div = document.createElement("div");
+  // for (const key in a) {
+  //   // eslint-disable-next-line no-unused-expressions
+  //   !(key in div) && console.log(`${key} = ${a[key]}`);
+  // }
+  const query = a.search.slice(1).split("&");
+  const params = {};
+  for (let param of query) {
+    let [key, value] = param.split("=");
+    params[key] = decodeURIComponent(value);
+  }
+  return params;
+}
+
 // 浏览器环境下利用location接口或者使用URL
 function urlParse(url) {
   let query;
