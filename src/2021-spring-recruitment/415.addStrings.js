@@ -3,6 +3,7 @@
  * @param {string} num2
  * @return {string}
  */
+// 大数求和
 function addStrings(num1, num2) {
   const maxLength = Math.max(num1.length, num2.length);
   num1 = num1.padStart(maxLength, "0");
