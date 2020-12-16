@@ -53,13 +53,14 @@ class MyPromise {
   }
 }
 
-// new MyPromise((resolve, reject) => {
-//   setTimeout(() => {
-//     resolve(1);
-//   }, 1000);
-// }).then(value => {
-//   console.log(value);
-// });
+new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1);
+  }, 1000);
+}).then(value => {
+  console.log(value);
+});
+
 // eslint-disable-next-line no-new
 new Promise(function(resolve, reject) {
   resolve(1);

@@ -52,3 +52,18 @@ const fn = compose(middlewares);
 fn(null, () => {
   console.log("end");
 });
+
+// test
+Promise.resolve(
+  (async () => {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve(1);
+      }, 1000);
+    });
+    const res = await promise;
+    return res;
+  })()
+).then(res => {
+  console.log("Promise.then", res);
+});
