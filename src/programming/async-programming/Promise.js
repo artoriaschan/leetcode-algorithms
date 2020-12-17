@@ -22,6 +22,7 @@ class MyPromise {
       this.value = value;
       this.resolvedCallbacks.map(cb => cb(this.value));
     }
+    return new MyPromise(resolve => resolve(this.value));
   }
 
   reject(value) {
@@ -30,6 +31,7 @@ class MyPromise {
       this.value = value;
       this.rejectedCallbacks.map(cb => cb(this.value));
     }
+    return new MyPromise((_, reject) => reject(this.value));
   }
 
   then(onFulfilled, onRejected) {
@@ -45,10 +47,12 @@ class MyPromise {
       this.rejectedCallbacks.push(onRejected);
     }
     if (this.state === RESOLVED) {
-      onFulfilled(this.value);
+      this.value = onFulfilled(this.value);
+      return new MyPromise(resolve => resolve(this.value));
     }
     if (this.state === REJECTED) {
-      onRejected(this.value);
+      this.value = onRejected(this.value);
+      return new MyPromise((_, reject) => reject(this.value));
     }
   }
 }
@@ -61,31 +65,31 @@ new MyPromise((resolve, reject) => {
   console.log(value);
 });
 
-// eslint-disable-next-line no-new
-new Promise(function(resolve, reject) {
-  resolve(1);
-  resolve(2);
-})
-  .then(function(res) {
-    console.log(res);
-    return 3;
-  })
-  .then(function(res) {
-    console.log(res);
-  });
+// // eslint-disable-next-line no-new
+// new Promise(function(resolve, reject) {
+//   resolve(1);
+//   resolve(2);
+// })
+//   .then(function(res) {
+//     console.log(res);
+//     return 3;
+//   })
+//   .then(function(res) {
+//     console.log(res);
+//   });
 
-// 宏任务队列和微任务队列
-setTimeout(() => {
-  console.log(1);
-  new Promise(function(resolve) {
-    resolve(2);
-  }).then(res => {
-    console.log(res);
-    new Promise(function(resolve) {
-      resolve(3);
-    }).then(res => console.log(res));
-  });
-  setTimeout(() => {
-    console.log(4);
-  }, 0);
-}, 0);
+// // 宏任务队列和微任务队列
+// setTimeout(() => {
+//   console.log(1);
+//   new Promise(function(resolve) {
+//     resolve(2);
+//   }).then(res => {
+//     console.log(res);
+//     new Promise(function(resolve) {
+//       resolve(3);
+//     }).then(res => console.log(res));
+//   });
+//   setTimeout(() => {
+//     console.log(4);
+//   }, 0);
+// }, 0);
