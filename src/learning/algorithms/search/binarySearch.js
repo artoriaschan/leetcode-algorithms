@@ -35,6 +35,7 @@ function bsearchInternally(arr, low, high, value) {
   }
   return bsearchInternally(arr, low, mid - 1, value);
 }
+
 const arr1 = [7, 8, 9, 9, 11, 16, 17, 28, 28, 30, 31, 32, 34, 38, 44, 46, 50];
 console.log(bsearch(arr1, 30));
 console.log(bsearch(arr1, 9));

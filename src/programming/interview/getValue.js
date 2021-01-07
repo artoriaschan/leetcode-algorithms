@@ -1,4 +1,5 @@
 /**
+ * 有赞一面
  * 2、实现 getValue 函数，安全的获取目标对象指定 path 的值
  * @params {object | array} value 指定对象
  * @params {string} path

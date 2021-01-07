@@ -1,3 +1,8 @@
+/**
+ * 网易一面
+ * 输入行数，打印杨辉三角
+ * @param {*} n
+ */
 function pascals(n) {
   if (n === 1) return [1];
   if (n === 2) return [1, 1];
