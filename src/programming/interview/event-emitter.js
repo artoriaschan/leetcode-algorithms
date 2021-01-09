@@ -25,13 +25,24 @@ class CustomEventEmitter {
       }
     }
   }
+
+  off(eventName, handler) {
+    if (this.events.has(eventName)) {
+      const handlers = this.events.get(eventName);
+      const index = handlers.indexOf(handler);
+      if (index >= 0) handlers.splice(index, 1);
+    }
+  }
 }
 
 const event = new CustomEventEmitter();
 
 const handleTestEvent1 = () => console.log("1 on test event!");
 const handleTestEvent2 = () => console.log("2 on test event!");
+const handleTestEvent3 = () => console.log("3 on test event!");
 
 event.on("test", handleTestEvent1); // add listener
 event.on("test", handleTestEvent2); // add listener
+event.on("test", handleTestEvent3); // add listener
+event.off("test", handleTestEvent3);
 event.emit("test"); // on test event!
