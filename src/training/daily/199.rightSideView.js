@@ -46,3 +46,27 @@ function rightSideView1(root) {
   }
   return arr;
 }
+function rightSideView2(root) {
+  if (!root) return [];
+  let res = [];
+  const queue = [];
+  const depth = [];
+  queue.push(root);
+  depth.push(0);
+  while (queue.length > 0) {
+    const node = queue.shift();
+    const dep = depth.shift();
+    if (res.length === dep) {
+      res.push(node.val);
+    }
+    if (node.right) {
+      queue.push(node.right);
+      depth.push(dep + 1);
+    }
+    if (node.left) {
+      queue.push(node.left);
+      depth.push(dep + 1);
+    }
+  }
+  return res;
+}
