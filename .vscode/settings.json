@@ -1,0 +1,6 @@
+{
+  "eslint.nodePath": "",
+  "eslint.options": {
+    "resolvePluginsRelativeTo": ""
+  },
+}

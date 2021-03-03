@@ -1,29 +1,32 @@
 module.exports = {
-  extends: ['eslint:recommended', 'airbnb-base/legacy', 'prettier'],
+  extends: ["eslint:recommended", "airbnb-base/legacy", "prettier"],
   parserOptions: {
     ecmaVersion: 2020,
-    sourceType: 'module'
+    sourceType: "module",
   },
   env: {
     es6: true,
     node: true,
-    browser: true
+    browser: true,
   },
-  plugins: ['prettier'],
+  plugins: ["prettier"],
   rules: {
-    "prettier/prettier": ["error", {
-      "endOfLine":"auto"
-    }],
-    "no-param-reassign": ["error", { "props": false }],
-    "strict": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
+    "no-param-reassign": ["error", { props: false }],
+    strict: "off",
     "no-console": "off",
     "import/no-dynamic-require": "off",
     "global-require": "off",
     "require-yield": "off",
     "no-restricted-syntax": "off",
     "guard-for-in": "off",
-    "no-nested-ternary":"off",
-    "no-use-before-define":"off",
+    "no-nested-ternary": "off",
+    "no-use-before-define": "off",
     "no-shadow": "off",
     "no-underscore-dangle": "off",
     "no-return-assign": "off",
@@ -33,12 +36,11 @@ module.exports = {
     "no-param-reassign": "off",
     "no-continue": "off",
     "max-classes-per-file": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
   },
-  settings: {
-  },
+  settings: {},
   globals: {
-    "BigInt": "readonly",
-    "TreeNode": "readonly"
-  }
+    BigInt: "readonly",
+    TreeNode: "readonly",
+  },
 };
