@@ -1,7 +1,8 @@
 module.exports = {
   extends: ["eslint:recommended", "airbnb-base/legacy", "prettier"],
+  parser: "@babel/eslint-parser",
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 12,
     sourceType: "module",
   },
   env: {
@@ -17,7 +18,6 @@ module.exports = {
         endOfLine: "auto",
       },
     ],
-    "no-param-reassign": ["error", { props: false }],
     strict: "off",
     "no-console": "off",
     "import/no-dynamic-require": "off",
@@ -33,7 +33,6 @@ module.exports = {
     "no-plusplus": "off",
     "no-bitwise": "off",
     "consistent-return": "off",
-    "no-param-reassign": "off",
     "no-continue": "off",
     "max-classes-per-file": "off",
     "no-unused-vars": "off",
