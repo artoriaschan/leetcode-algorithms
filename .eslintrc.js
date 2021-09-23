@@ -1,3 +1,10 @@
+/*
+ * @Author: beiluo1@xiaohongshu.com
+ * @Date: 2021-04-10 17:24:34
+ * @LastEditTime: 2021-09-23 15:28:49
+ * @LastEditors: beiluo1@xiaohongshu.com
+ * @Description: eslint规则
+ */
 module.exports = {
   extends: ["eslint:recommended", "airbnb-base/legacy", "prettier"],
   parser: "@babel/eslint-parser",
@@ -36,6 +43,7 @@ module.exports = {
     "no-continue": "off",
     "max-classes-per-file": "off",
     "no-unused-vars": "off",
+    "no-param-reassign": "off",
   },
   settings: {},
   globals: {
