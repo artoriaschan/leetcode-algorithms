@@ -9,20 +9,34 @@
  * @param {Node} root
  * @return {Node}
  */
+// 位于第 x 层时为第 x + 1 层建立 next 指针
+let last = null;
+let nextStart = null;
 function connect(root) {
-  if (!root) return root;
-  const stack = [root];
-  while (stack.length) {
-    const size = stack.length;
-    let pre = null;
-    for (let i = 0; i < size; i++) {
-      const node = stack.shift();
-      if (node.left) stack.push(node.left);
-      if (node.right) stack.push(node.right);
-      if (pre) pre.next = node;
-      pre = node;
-      if (i === size - 1) node.next = null;
+  if (root === null) return null;
+  let start = root;
+  while (start != null) {
+    last = null;
+    nextStart = null;
+    for (let p = start; p !== null; p = p.next) {
+      if (p.left !== null) {
+        handle(p.left);
+      }
+      if (p.right !== null) {
+        handle(p.right);
+      }
     }
+    start = nextStart;
   }
   return root;
+}
+
+function handle(p) {
+  if (last !== null) {
+    last.next = p;
+  }
+  if (nextStart === null) {
+    nextStart = p;
+  }
+  last = p;
 }
