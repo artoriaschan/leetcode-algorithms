@@ -15,7 +15,7 @@ class MyPromise {
 
   value = null
 
-  reson = null
+  reason = null
 
   onFulfilledCallbacks = []
 
@@ -32,13 +32,13 @@ class MyPromise {
     }
   }
   
-  reject = (reson)=>{
+  reject = (reason)=>{
     if(this.status === PENDING) {
       this.status = REJECTED
-      this.reson = reson
+      this.reason = reason
       // 执行缓存的回调函数
       while(this.onRejectedCallbacks.length) {
-        this.onRejectedCallbacks.shift()(reson)
+        this.onRejectedCallbacks.shift()(reason)
       }
     }
   }
@@ -63,9 +63,9 @@ class MyPromise {
         queueMicrotask(() => {
           try {
             // 调用失败回调，并且把原因返回
-            const reson = realOnRejected(this.reson)
+            const reason = realOnRejected(this.reason)
             // 传入 resolvePromise 集中处理
-            resolvePromise(next, reson, resolve, reject)
+            resolvePromise(next, reason, resolve, reject)
           } catch (error) {
             reject(error)
           }
@@ -160,23 +160,32 @@ function resolvePromise(promise, x, resolve, reject) {
 }
 
 // ========================test=========================
-MyPromise.resolve().then(() => {
-  console.log(0);
-  return MyPromise.resolve(4);
-}).then((res) => {
-  console.log(res)
-})
+// MyPromise.resolve().then(() => {
+//   console.log(0);
+//   return MyPromise.resolve(4);
+// }).then((res) => {
+//   console.log(res)
+// })
 
-MyPromise.resolve().then(() => {
-  console.log(1);
-}).then(() => {
-  console.log(2);
-}).then(() => {
-  console.log(3);
-}).then(() => {
-  console.log(5);
-}).then(() =>{
-  console.log(6);
-})
+// MyPromise.resolve().then(() => {
+//   console.log(1);
+// }).then(() => {
+//   console.log(2);
+// }).then(() => {
+//   console.log(3);
+// }).then(() => {
+//   console.log(5);
+// }).then(() =>{
+//   console.log(6);
+// })
+
+MyPromise.deferred = function () {
+  const dfd = {};
+  dfd.promise = new MyPromise( (resolve, reject) => {
+      dfd.resolve = resolve;
+      dfd.reject = reject;
+  })
+  return dfd;
+}
 
 module.exports = MyPromise

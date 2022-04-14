@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:artoriaschan/LeetCode.git",
-  "author": "chenzheng04 <chenzheng04@58.com>",
+  "author": "ArtoriasChan <dalecracker@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test:PromiseA+": "promises-aplus-tests ./src/programming/polyfill/Promise.js",
