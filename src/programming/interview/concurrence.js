@@ -7,28 +7,29 @@ const axios = url => {
 };
 
 function concurrence(urls, maxNum) {
-  let dataList = [];
-  let reqCallbacks = [];
-  const next = () => {
-    if (urls.length <= 0) return Promise.resolve();
-    let [path] = urls.splice(0, 1);
-    console.log(path, "开始");
-    let req = Promise.resolve(axios(path));
-    dataList.push(req);
-
-    let reqCallback = req.then(() => {
-      reqCallbacks.splice(0, 1);
-      console.log(path, "结束");
-    });
-    reqCallbacks.push(reqCallback);
+  let i = 0;
+  let ret = [];
+  const executing = new Set();
+  const enqueue = () => {
+    if (urls.length === i) return Promise.resolve();
+    const url = urls[i++];
+    console.log(url, "开始");
+    const p = Promise.resolve(axios(url));
+    ret.push(p);
+    executing.add(p);
+    const clean = () => {
+      executing.delete(p);
+      console.log(url, "结束");
+    };
+    p.then(clean).catch(clean);
 
     let r = Promise.resolve();
-    if (reqCallbacks.length >= maxNum) {
-      r = Promise.race(reqCallbacks);
+    if (executing.size >= maxNum) {
+      r = Promise.race(executing);
     }
-    return r.then(() => next());
+    return r.then(() => enqueue());
   };
-  return next().then(() => Promise.all(dataList));
+  return enqueue().then(() => Promise.all(ret));
 }
 
 concurrence(["/url1", "/url2", "/url3", "/url4", "/url5", "/url6", "/url7", "/url8"], 5).then(data => {
