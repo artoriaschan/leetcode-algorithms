@@ -3,4 +3,7 @@
   "eslint.options": {
     "resolvePluginsRelativeTo": ""
   },
+  "cSpell.words": [
+    "postorder"
+  ],
 }
