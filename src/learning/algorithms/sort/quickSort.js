@@ -11,8 +11,7 @@ function quickSort(arr, lo, hi) {
   lo = lo !== undefined ? lo : 0;
   hi = hi !== undefined ? hi : arr.length - 1;
   if (hi - lo < 1) return;
-  let mi = partition(arr, lo, hi);
-  // let mi = partition1(arr, lo, hi);
+  const mi = partition(arr, lo, hi);
   quickSort(arr, lo, mi - 1);
   quickSort(arr, mi + 1, hi);
 }
@@ -30,11 +29,11 @@ function quickSort(arr, lo, hi) {
  *    跳出循环时, 将当前元素复制到hi指向的元素(hi指向的元素在上次循环中已复制到lo指向的元素中, 所以此时可视为空)
  */
 function partition(arr, lo, hi) {
-  let pivot = arr[lo];
+  const pivot = arr[lo];
   while (lo < hi) {
     while (lo < hi && pivot <= arr[hi]) hi--;
     arr[lo] = arr[hi];
-    while (lo < hi && arr[lo] <= pivot) lo++;
+    while (lo < hi && pivot >= arr[lo]) lo++;
     arr[hi] = arr[lo];
   }
   arr[lo] = pivot;

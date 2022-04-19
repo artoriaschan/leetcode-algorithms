@@ -303,15 +303,15 @@
 //   return left === null ? right : left;
 // }
 
-// function fetchWithRetry(input, init, times = 3, delay = 1000) {
+// function fetchWithRetry(url, init, times = 3, delay = 1000) {
 //   return new Promise((resolve, reject) => {
+//     function retry(attempt) {
+//       setTimeout(() => {
+//         wrappedFetch(++attempt);
+//       }, delay);
+//     }
 //     function wrappedFetch(attempt) {
-//       function retry(attempt) {
-//         setTimeout(() => {
-//           wrappedFetch(++attempt);
-//         }, delay);
-//       }
-//       fetch(input, init)
+//       fetch(url, init)
 //         .then(response => {
 //           resolve(response);
 //         })
@@ -682,3 +682,61 @@
 // concurrence(["/url1", "/url2", "/url3", "/url4", "/url5", "/url6", "/url7", "/url8"], 5).then(data => {
 //   console.log(data);
 // });
+
+// function concurrence(promises) {
+//   const p = promises.reduce((prev, cur) => {
+//     return prev.then(() => cur());
+//   }, Promise.resolve());
+//   return p;
+// }
+
+// const p1 = () =>
+//   new Promise(resolve => {
+//     setTimeout(() => {
+//       console.log(1);
+//       resolve(1);
+//     }, 1000);
+//   });
+// const p2 = () =>
+//   new Promise(resolve => {
+//     setTimeout(res => {
+//       console.log(2);
+//       resolve(2);
+//     }, 1000);
+//   });
+// const p3 = () =>
+//   new Promise(resolve => {
+//     setTimeout(() => {
+//       console.log(3);
+//       resolve(3);
+//     }, 1000);
+//   });
+
+// concurrence([p1, p2, p3]).then(res => {
+//   // console.log(res);
+// });
+
+// function quickSort(arr, lo, hi) {
+//   lo = lo !== undefined ? lo : 0;
+//   hi = hi !== undefined ? hi : arr.length - 1;
+//   if (hi - lo < 1) return;
+//   const mi = partition(arr, lo, hi);
+//   quickSort(arr, lo, mi - 1);
+//   quickSort(arr, mi + 1, hi);
+// }
+
+// function partition(arr, lo, hi) {
+//   const pivot = arr[lo];
+//   while (lo < hi) {
+//     while (lo < hi && pivot <= arr[hi]) hi--;
+//     arr[lo] = arr[hi];
+//     while (lo < hi && pivot >= arr[lo]) lo++;
+//     arr[hi] = arr[lo];
+//   }
+//   arr[lo] = pivot;
+//   return lo;
+// }
+
+// const arr = [2, 1, 5, 8, 4, 7, 3, 6];
+// quickSort(arr);
+// console.log(arr);
