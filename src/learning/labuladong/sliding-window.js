@@ -740,3 +740,108 @@
 // const arr = [2, 1, 5, 8, 4, 7, 3, 6];
 // quickSort(arr);
 // console.log(arr);
+
+// let p = new Promise((resolve, reject) => {
+//   resolve();
+//   console.log(1);
+//   reject();
+// });
+
+// p.then(() => console.log(2))
+//   .catch(() => console.log(3))
+//   .finally(() => console.log(4));
+
+// Function.prototype.a = () => console.log(1);
+// Object.prototype.b = () => console.log(2);
+// function A() {}
+// const a = new A();
+// A.b();
+// A.a();
+// a.b();
+// a.a();
+
+// Promise.resolve(1)
+//   .then(2)
+//   .then(Promise.resolve(3))
+//   .then(console.log);
+
+// function fetchWithAbort(fetchPromise) {
+//   let abort = null;
+//   const abortPromise = new Promise((resolve, reject) => {
+//     abort = () => {
+//       reject(new Error("abort"));
+//       console.log("=== fetchWithAbort abort ===");
+//     };
+//   });
+//   let promiseWithAbort = Promise.race([fetchPromise, abortPromise]);
+//   promiseWithAbort.abort = abort;
+//   return promiseWithAbort;
+// }
+
+// const p = fetchWithAbort(
+//   new Promise(resolve => {
+//     setTimeout(() => {
+//       console.log("请求完成");
+//       resolve();
+//     }, 1000);
+//   })
+// );
+
+// setTimeout(() => {
+//   p.abort();
+// }, 500);
+
+// function wrapCachedFetch(fetcher, symbol) {
+//   const cache = new Map();
+//   return function(params) {
+//     return new Promise((resolve, reject) => {
+//       let cacheEntity = cache.get(symbol);
+//       if (cacheEntity) {
+//         if (cacheEntity.res) {
+//           return resolve(cacheEntity.res);
+//         }
+//         cacheEntity.executor.push({ resolve, reject });
+//       } else {
+//         cacheEntity = {
+//           res: null,
+//           executor: [{ resolve, reject }],
+//         };
+//         cache.set(symbol, cacheEntity);
+//       }
+
+//       const { executor } = cacheEntity;
+//       if (executor.length === 1) {
+//         const next = async () => {
+//           try {
+//             if (!executor.length) return;
+//             const response = await fetcher(params);
+//             while (executor.length) {
+//               const item = executor.shift();
+//               item?.resolve(response);
+//             }
+//             cacheEntity.res = response;
+//           } catch (error) {
+//             const item = executor.shift();
+//             item?.reject(error);
+//             next();
+//           }
+//         };
+//         next();
+//       }
+//     });
+//   };
+// }
+
+// async function fetchData(a) {
+//   const data = await fetch("//juejin.cn/");
+//   const d = await data.text();
+//   return d;
+// }
+
+// const cachedFetch = wrapCachedFetch(fetchData, "test2");
+// cachedFetch(1).then(res => console.log(res));
+// cachedFetch(2).then(res => console.log(res));
+// cachedFetch(3).then(res => console.log(res));
+// cachedFetch(4).then(res => console.log(res));
+// cachedFetch(5).then(res => console.log(res));
+// cachedFetch(6).then(res => console.log(res));
