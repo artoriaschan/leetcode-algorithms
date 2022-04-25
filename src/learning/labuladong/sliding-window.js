@@ -845,3 +845,158 @@
 // cachedFetch(4).then(res => console.log(res));
 // cachedFetch(5).then(res => console.log(res));
 // cachedFetch(6).then(res => console.log(res));
+
+// function asyncAdd(a, b, cb) {
+//   setTimeout(() => {
+//     cb(null, a + b);
+//   }, 100);
+// }
+
+// function sum(...nums) {
+//   const results = [...nums];
+//   const executing = new Set();
+
+//   const next = results => {
+//     const len = results.length;
+//     for (let i = 0; i < len - 1; i += 2) {
+//       const prev = results.pop();
+//       const curr = results.pop();
+//       const p = new Promise((resolve, reject) => {
+//         asyncAdd(prev, curr, (error, result) => {
+//           if (!error) {
+//             resolve(result);
+//           } else {
+//             reject(error);
+//           }
+//         });
+//       });
+//       executing.add(p);
+//       const clean = () => {
+//         executing.delete(p);
+//       };
+//       p.then(clean).catch(clean);
+//     }
+//     if (executing.size) {
+//       const r = Promise.race(Array.from(executing)).then(result => {
+//         results.push(result);
+//       });
+//       return r.then(() => next(results));
+//     }
+//     return Promise.resolve(results[0]);
+//   };
+
+//   return next(results);
+// }
+// sum(3, 4, 9, 2, 5, 3, 2, 1, 7).then(result => {
+//   console.log("sum", result);
+// });
+
+// function promiseAsyncAdd(a, b) {
+//   if (a === 0) return b;
+//   return new Promise((resolve, reject) => {
+//     asyncAdd(a, b, (err, res) => {
+//       resolve(res);
+//     });
+//   });
+// }
+
+// function sum() {
+//   let args = Array.from(arguments);
+//   // 初始化一个 Promise, 和是 0
+//   let p = Promise.resolve(0);
+//   return args.reduce((acc, cur) => {
+//     // 利用 promise 可链式调用
+//     p = p.then(res => {
+//       return promiseAsyncAdd(res, cur);
+//     });
+//     return p.then(res => {
+//       // res 是每一轮 reduce计算的和 return出去
+//       return res;
+//     });
+//   }, 0);
+// }
+
+// function sum(...nums) {
+//   let queue = Array.from(nums);
+//   let count = Math.ceil(queue.length / 2);
+//   function done(resolve) {
+//     while (queue.length > 1) {
+//       let adds = queue.splice(0, 2);
+//       asyncAdd(...adds, (err, result) => {
+//         queue.push(result);
+//         if (queue.length === count) {
+//           if (count === 1) {
+//             resolve(queue[0]);
+//           } else {
+//             count = Math.ceil(queue.length / 2);
+//             done(resolve);
+//           }
+//         }
+//       });
+//     }
+//   }
+//   return new Promise(resolve => {
+//     done(resolve);
+//   });
+// }
+
+// const start = new Date().getTime();
+// sum(3, 4, 9, 2, 5, 3, 2, 1, 7).then(result => {
+//   const end = new Date().getTime();
+//   console.log(end - start);
+//   console.log("sum", result);
+// });
+
+// const scheduler = max => {
+//   const tasks = [];
+//   const executing = [];
+//   function run() {
+//     while (tasks.length && executing.length < max) {
+//       const [task, resolve, reject] = tasks.shift();
+//       const p = task().then(
+//         res => {
+//           const idx = executing.indexOf(p);
+//           resolve(res);
+//           executing.splice(idx, 1);
+//           run();
+//         },
+//         error => {
+//           reject(error);
+//         }
+//       );
+//       executing.push(p);
+//     }
+//   }
+//   return task => {
+//     return new Promise((resolve, reject) => {
+//       tasks.push([task, resolve, reject]);
+//       run();
+//     });
+//   };
+// };
+
+// const request1 = () => new Promise(resolve => setTimeout(() => resolve(1), 4000));
+// const request2 = () => new Promise(resolve => setTimeout(() => resolve(2), 1000));
+// const request3 = () => new Promise(resolve => setTimeout(() => resolve(3), 2000));
+// const request4 = () => new Promise(resolve => setTimeout(() => resolve(4), 1500));
+
+// const s = scheduler(2);
+// s(request1).then(res => console.log(res));
+// s(request2).then(res => console.log(res));
+// s(request3).then(res => console.log(res));
+// s(request4).then(res => console.log(res));
+
+// function myFilter(arr, cb) {
+//   const res = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     const item = arr[i];
+//     if (cb(item, i, arr)) {
+//       res.push(item);
+//     }
+//   }
+//   return res;
+// }
+
+// const arr = [1, 2, 3, 4, 5, 6];
+// console.log(arr.filter(item => item % 2 === 0));
+// console.log(myFilter(arr, item => item % 2 === 0));
