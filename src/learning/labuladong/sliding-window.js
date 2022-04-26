@@ -1000,3 +1000,106 @@
 // const arr = [1, 2, 3, 4, 5, 6];
 // console.log(arr.filter(item => item % 2 === 0));
 // console.log(myFilter(arr, item => item % 2 === 0));
+
+// function thousandSeparator(num) {
+//   // 正则表达式
+//   // return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//   // 字符串拼接
+//   num = (num || 0).toString();
+//   let result = "";
+//   while (num.length > 3) {
+//     result = "," + num.slice(-3) + result;
+//     num = num.slice(0, num.length - 3);
+//   }
+//   if (num !== "") {
+//     result = num + result;
+//   }
+//   return result;
+// }
+
+// console.log(thousandSeparator(123456789));
+
+// function compareVersion(version1, version2) {
+//   const v1 = version1.split(".");
+//   const v2 = version2.split(".");
+//   const len = Math.max(v1.length, v2.length);
+//   for (let i = 0; i < len; i++) {
+//     const n1 = parseInt(v1[i] || 0, 10);
+//     const n2 = parseInt(v2[i] || 0, 10);
+//     if (n1 > n2) {
+//       return 1;
+//     }
+//     if (n1 < n2) {
+//       return -1;
+//     }
+//   }
+//   return 0;
+// }
+
+// console.log(compareVersion("1.0.2502", "1.0.2501"));
+
+// function lengthOfLongestSubstring(s) {
+//   const window = new Map();
+//   let max = 0;
+//   let start = 0;
+//   for (let i = 0; i < s.length; i++) {
+//     const c = s[i];
+//     if (window.has(c)) {
+//       start = Math.max(start, window.get(c) + 1);
+//     }
+//     window.set(c, i);
+//     max = Math.max(max, i - start + 1);
+//   }
+//   return max;
+// }
+
+// const s = "abcabcbb";
+// console.log(lengthOfLongestSubstring(s));
+
+function compose(middleware) {
+  if (!Array.isArray(middleware)) throw new TypeError("Middleware stack must be an array!");
+
+  for (const fn of middleware) {
+    if (typeof fn !== "function") throw new TypeError("Middleware must be composed of functions!");
+  }
+
+  return function(context, next) {
+    let index = -1;
+    return dispatch(0);
+    function dispatch(i) {
+      if (i <= index) return Promise.reject(new Error("next() called multiple times"));
+      index = i;
+      let fn = middleware[i];
+      if (i === middleware.length) fn = next;
+      if (!fn) return Promise.resolve();
+      try {
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+  };
+}
+
+const m1 = async (ctx, next) => {
+  console.log("m1 before");
+  await next();
+  console.log("m1 after");
+};
+const m2 = async (ctx, next) => {
+  console.log("m2 before");
+  await next();
+  console.log("m2 after");
+};
+const m3 = async (ctx, next) => {
+  console.log("m3 before");
+  await next();
+  console.log("m3 after");
+};
+
+const fn = compose([m1, m2, m3]);
+fn({}, () => {
+  console.log("next");
+}).then(() => {
+  console.log("respond");
+});
