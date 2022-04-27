@@ -23,5 +23,4 @@ function lengthOfLongestSubstring(s) {
 
 // const s = "pwwkew";
 const s = "nfpdmpi";
-lengthOfLongestSubstring(s);
-console.log(s.slice(7) === "");
+console.log(lengthOfLongestSubstring(s));

@@ -1056,50 +1056,216 @@
 // const s = "abcabcbb";
 // console.log(lengthOfLongestSubstring(s));
 
-function compose(middleware) {
-  if (!Array.isArray(middleware)) throw new TypeError("Middleware stack must be an array!");
+// function compose(middleware) {
+//   if (!Array.isArray(middleware)) throw new TypeError("Middleware stack must be an array!");
 
-  for (const fn of middleware) {
-    if (typeof fn !== "function") throw new TypeError("Middleware must be composed of functions!");
+//   for (const fn of middleware) {
+//     if (typeof fn !== "function") throw new TypeError("Middleware must be composed of functions!");
+//   }
+
+//   return function(context, next) {
+//     let index = -1;
+//     return dispatch(0);
+//     function dispatch(i) {
+//       if (i <= index) return Promise.reject(new Error("next() called multiple times"));
+//       index = i;
+//       let fn = middleware[i];
+//       if (i === middleware.length) fn = next;
+//       if (!fn) return Promise.resolve();
+//       try {
+//         return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
+//       } catch (err) {
+//         return Promise.reject(err);
+//       }
+//     }
+//   };
+// }
+
+// const m1 = async (ctx, next) => {
+//   console.log("m1 before");
+//   await next();
+//   console.log("m1 after");
+// };
+// const m2 = async (ctx, next) => {
+//   console.log("m2 before");
+//   await next();
+//   console.log("m2 after");
+// };
+// const m3 = async (ctx, next) => {
+//   console.log("m3 before");
+//   await next();
+//   console.log("m3 after");
+// };
+
+// const fn = compose([m1, m2, m3]);
+// fn({}, () => {
+//   console.log("next");
+// }).then(() => {
+//   console.log("respond");
+// });
+
+// function restoreIpAddresses(s) {
+//   const res = [];
+//   backtrack(s, 0, [], res);
+//   return res;
+// }
+
+// function backtrack(s, start, temp, res) {
+//   if (temp.length === 4 && start === s.length) {
+//     res.push(temp.join("."));
+//     return;
+//   }
+//   if (temp.length === 4 && start < s.length) return;
+//   // 依次获取三位数字
+//   for (let i = 1; i <= 3; i++) {
+//     // 长度越界 直接返回
+//     if (start + i > s.length) break;
+//     const num = s.substring(start, start + i);
+//     // 多位数不允许有前导0
+//     if (num.length > 1 && num[0] === "0") return;
+//     // 数字范围不能超过255
+//     if (i === 3 && parseInt(num, 10) > 255) return;
+//     temp.push(num);
+//     backtrack(s, start + i, temp.slice(), res);
+//     temp.pop();
+//   }
+// }
+
+// const s = "101023";
+// console.log(restoreIpAddresses(s));
+
+// function flat(arr, depth = Number.MAX_SAFE_INTEGER) {
+//   return depth > 0
+//     ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flat(val, depth - 1) : val), [])
+//     : arr.slice();
+// }
+
+// const arr = [1, 2, [3, [4, 5]], [6], [7, [8], 9]];
+// console.log(flat(arr, 1));
+
+// function lengthOfLongestSubstring(s) {
+//   let max = 0;
+//   let window = new Map();
+//   let start = 0;
+//   for (let i = 0; i < s.length; i++) {
+//     const c = s[i];
+//     if (window.has(c)) {
+//       start = Math.max(start, window.get(c) + 1);
+//     }
+//     window.set(c, i);
+//     max = Math.max(max, i - start + 1);
+//   }
+//   return max;
+// }
+
+// const s = "nfpdmpi";
+// console.log(lengthOfLongestSubstring(s));
+
+// function singleNumber(arr) {
+//   let ans = 0;
+//   for (const num of arr) {
+//     ans ^= num;
+//   }
+//   return ans;
+// }
+
+// const arr = [1, 2, 1, 1, 1, 1, 1, 1, 1];
+// console.log(singleNumber(arr));
+
+// function merge(target, other) {
+//   if (!other.length) return;
+//   if (!target.length) {
+//     for (let item of other) {
+//       target.push(item);
+//     }
+//     return;
+//   }
+//   let x = target.length - 1;
+//   let y = other.length - 1;
+//   let totalLen = target.length + other.length - 1;
+//   while (x >= 0 && y >= 0) {
+//     if (target[x] < other[y]) {
+//       target[totalLen] = other[y];
+//       y--;
+//       totalLen--;
+//     } else {
+//       [target[x], target[totalLen]] = [target[totalLen], target[x]];
+//       x--;
+//       totalLen--;
+//     }
+//   }
+//   for (; y >= 0; y--) {
+//     target[y] = other[y];
+//   }
+// }
+
+// const arr1 = [6, 7, 8, 22, 51, 67, 77, 79];
+// const arr2 = [1, 2, 3, 11, 23, 68, 78];
+// merge(arr1, arr2);
+// console.log(arr1);
+
+class Trie {
+  constructor() {
+    this.root = Object.create(null);
   }
 
-  return function(context, next) {
-    let index = -1;
-    return dispatch(0);
-    function dispatch(i) {
-      if (i <= index) return Promise.reject(new Error("next() called multiple times"));
-      index = i;
-      let fn = middleware[i];
-      if (i === middleware.length) fn = next;
-      if (!fn) return Promise.resolve();
-      try {
-        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
-      } catch (err) {
-        return Promise.reject(err);
-      }
+  insert(word) {
+    let node = this.root;
+    for (const c of word) {
+      if (!node[c]) node[c] = Object.create(null);
+      node = node[c];
     }
-  };
+    node.isWord = true;
+  }
+
+  traverse(word) {
+    let node = this.root;
+    for (const c of word) {
+      node = node[c];
+      if (!node) return null;
+    }
+    return node ?? null;
+  }
+
+  search(word) {
+    const node = this.traverse(word);
+    return !!node && !!node.isWord;
+  }
+
+  startsWith(prefix) {
+    return this.traverse(prefix);
+  }
 }
 
-const m1 = async (ctx, next) => {
-  console.log("m1 before");
-  await next();
-  console.log("m1 after");
-};
-const m2 = async (ctx, next) => {
-  console.log("m2 before");
-  await next();
-  console.log("m2 after");
-};
-const m3 = async (ctx, next) => {
-  console.log("m3 before");
-  await next();
-  console.log("m3 after");
-};
+function searchWith(arr, prefix) {
+  const trie = new Trie();
+  for (let str of arr) {
+    trie.insert(str);
+  }
+  const res = [];
+  const node = trie.startsWith(prefix);
+  if (!node) return res;
+  let map = {
+    [prefix]: node,
+  };
+  while (Object.keys(map).length > 0) {
+    const keys = Object.keys(map);
+    const next = {};
+    for (let key of keys) {
+      const node = map[key];
+      for (let prop in node) {
+        if (prop === "isWord" && node[prop] === true) {
+          res.push(key);
+        } else {
+          next[key + prop] = node[prop];
+        }
+      }
+    }
+    map = next;
+  }
+  return res;
+}
 
-const fn = compose([m1, m2, m3]);
-fn({}, () => {
-  console.log("next");
-}).then(() => {
-  console.log("respond");
-});
+const arr = ["abc", "def", "abde", "abdee"];
+const prefix = "ab";
+console.log(searchWith(arr, prefix));
