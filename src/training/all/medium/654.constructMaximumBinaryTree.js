@@ -1,4 +1,6 @@
 // https://leetcode-cn.com/problems/maximum-binary-tree/
+import TreeNode from "../TreeNode";
+
 function constructMaximumBinaryTree(nums) {
   return build(nums, 0, nums.length - 1);
 }
