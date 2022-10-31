@@ -1,0 +1,8 @@
+[workspace]
+
+members = [
+  "crates/leetcode-easy",
+  "crates/leetcode-medium",
+  "crates/leetcode-hard"
+]
+
