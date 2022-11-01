@@ -23,7 +23,7 @@ impl Solution {
                 if top % 2 == 1 {
                     break;
                 }
-                min_odd = std::cmp::min(min_odd, top / 2);
+                min_odd = cmp::min(min_odd, top / 2);
                 heap.push(top / 2);
             }
         }
