@@ -5,6 +5,8 @@ mod magical_string;
 mod maximum_swap;
 mod min_sub_array_len;
 mod my_linked_list;
+mod reach_a_number;
 mod reconstruct_queue;
 mod reorder_list;
+mod single_number_ii;
 mod surrounded_regions;
