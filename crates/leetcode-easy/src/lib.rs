@@ -1,3 +1,5 @@
 mod array_strings_are_equal;
+mod count_the_number_of_consistent_strings;
+mod goal_parser_interpretation;
 mod maximum_repeating_substring;
 mod reorder_spaces;

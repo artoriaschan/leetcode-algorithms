@@ -1,4 +1,6 @@
+mod ambiguous_coordinates;
 mod best_coordinate;
+mod divide_two_integers;
 mod gas_station;
 mod largest_number;
 mod magical_string;
