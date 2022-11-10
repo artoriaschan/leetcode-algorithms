@@ -44,10 +44,10 @@ mod tests {
 
     #[test]
     fn it_works() {
-        // let allowed = String::from("ab");
-        // let words = ["ad", "bd", "aaab", "baa", "badab"]
-        //     .map(String::from)
-        //     .to_vec();
-        // assert_eq!(Solution::count_consistent_strings(allowed, words), 2);
+        let allowed = String::from("ab");
+        let words = ["ad", "bd", "aaab", "baa", "badab"]
+            .map(String::from)
+            .to_vec();
+        assert_eq!(Solution::count_consistent_strings(allowed, words), 2);
     }
 }
